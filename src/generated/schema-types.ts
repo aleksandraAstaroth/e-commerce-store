@@ -242,3 +242,11 @@ export type IProductsQueryVariables = Exact<{
 
 
 export type IProductsQuery = { __typename?: 'Query', products: Array<{ __typename?: 'Product', id: string, title: string, price: number }> };
+
+export type IHomeViewProductsDataQueryVariables = Exact<{
+  limit: Scalars['Int']['input'];
+  offset: Scalars['Int']['input'];
+}>;
+
+
+export type IHomeViewProductsDataQuery = { __typename?: 'Query', products: Array<{ __typename?: 'Product', id: string, title: string, price: number }> };

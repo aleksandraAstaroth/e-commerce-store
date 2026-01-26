@@ -1,9 +1,17 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
-  /* config options here */
-  reactCompiler: true,
-  reactStrictMode: true,
-};
+	reactCompiler: true,
+	reactStrictMode: true,
+	turbopack: {
+		rules: {
+			'*.{graphql,gql}': {
+				loaders: ['graphql-tag/loader'],
+				as: '*.js',
+			},
+		},
+		resolveExtensions: ['.graphql', '.gql', '.ts', '.tsx', '.js', '.jsx', '.json'],
+	},
+}
 
-export default nextConfig;
+export default nextConfig
