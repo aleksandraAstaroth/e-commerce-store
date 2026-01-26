@@ -14,9 +14,12 @@
 		"graphql-request": "^7.4.0",
 		"graphql-tag": "^2.12.6",
 		"next": "16.1.4",
+		"ramda": "^0.32.0",
 		"react": "19.2.3",
 		"react-dom": "19.2.3",
-		"swr": "^2.3.8"
+		"swr": "^2.3.8",
+		"tailwind-merge": "^3.4.0",
+		"zustand": "^5.0.10"
 	},
 	"devDependencies": {
 		"@graphql-codegen/cli": "^6.1.1",
@@ -25,6 +28,7 @@
 		"@graphql-codegen/typescript-operations": "^5.0.7",
 		"@tailwindcss/postcss": "^4",
 		"@types/node": "^20",
+		"@types/ramda": "^0.31.1",
 		"@types/react": "^19",
 		"@types/react-dom": "^19",
 		"autoprefixer": "^10.4.23",

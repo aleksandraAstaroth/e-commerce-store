@@ -12,6 +12,14 @@ const nextConfig: NextConfig = {
 		},
 		resolveExtensions: ['.graphql', '.gql', '.ts', '.tsx', '.js', '.jsx', '.json'],
 	},
+	images: {
+		remotePatterns: [
+			{
+				protocol: 'https',
+				hostname: '**',
+			},
+		],
+	},
 }
 
 export default nextConfig

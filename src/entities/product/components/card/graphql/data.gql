@@ -1,0 +1,12 @@
+#import '../../../graphql/description.gql'
+#import '../../../graphql/id.gql'
+#import '../../../graphql/price.gql'
+#import '../../../graphql/title.gql'
+
+fragment productCardData on Product {
+	...productTitleData
+	...productDescriptionData
+	...productPriceData
+	...productIdData
+	images
+}

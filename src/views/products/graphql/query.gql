@@ -1,0 +1,7 @@
+#import "../../../entities/product/components/card/graphql/data.gql"
+query productsViewProductsData($limit: Int!, $offset: Int!, $categoryId: Float) {
+	products(limit: $limit, offset: $offset, categoryId: $categoryId) {
+		...productCardData
+		categories
+	}
+}

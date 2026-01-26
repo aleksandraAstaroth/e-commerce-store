@@ -55,3 +55,16 @@ body {
 .glow-turquoise {
   box-shadow: var(--neon-glow-turquoise);
 }
+
+.hover-border-glow-turquoise:hover {
+  box-shadow: var(--neon-glow-turquoise);
+  border-color: var(--neon-color-turquoise);
+}
+.hover-border-glow-turquoise {
+  transition: box-shadow 200ms ease, border-color 200ms ease;
+}
+
+
+  .wrapper {
+    @apply m-auto max-w-[1480px] min-h-[calc(100vh-162px)] py-3 lg:px-14 md:px-14 px-4;
+  }

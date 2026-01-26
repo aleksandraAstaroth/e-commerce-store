@@ -14,16 +14,28 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Learn more about it here: https://the-guild.dev/graphql/codegen/plugins/presets/preset-client#reducing-bundle-size
  */
 type Documents = {
+    "fragment categoryIdData on Category {\n  id\n}": typeof types.CategoryIdDataFragmentDoc,
+    "fragment categoryImageData on Category {\n  image\n}": typeof types.CategoryImageDataFragmentDoc,
+    "fragment categoryNameData on Category {\n  name\n}": typeof types.CategoryNameDataFragmentDoc,
+    "fragment productCardData on Product {\n  ...productTitleData\n  ...productDescriptionData\n  ...productPriceData\n  ...productIdData\n  images\n}": typeof types.ProductCardDataFragmentDoc,
+    "fragment productDescriptionData on Product {\n  description\n}": typeof types.ProductDescriptionDataFragmentDoc,
+    "fragment productIdData on Product {\n  id\n}": typeof types.ProductIdDataFragmentDoc,
     "fragment productPriceData on Product {\n  price\n}": typeof types.ProductPriceDataFragmentDoc,
     "fragment productTitleData on Product {\n  title\n}": typeof types.ProductTitleDataFragmentDoc,
-    "query Products($limit: Int!, $offset: Int!) {\n  products(limit: $limit, offset: $offset) {\n    id\n    title\n    price\n  }\n}": typeof types.ProductsDocument,
-    "query homeViewProductsData($limit: Int!, $offset: Int!) {\n  products(limit: $limit, offset: $offset) {\n    id\n    title\n    price\n  }\n}": typeof types.HomeViewProductsDataDocument,
+    "query categoryFilterCategoriesData {\n  categories {\n    id\n    name\n    image\n  }\n}": typeof types.CategoryFilterCategoriesDataDocument,
+    "query productsViewProductsData($limit: Int!, $offset: Int!, $categoryId: Float) {\n  products(limit: $limit, offset: $offset, categoryId: $categoryId) {\n    ...productCardData\n  }\n}": typeof types.ProductsViewProductsDataDocument,
 };
 const documents: Documents = {
+    "fragment categoryIdData on Category {\n  id\n}": types.CategoryIdDataFragmentDoc,
+    "fragment categoryImageData on Category {\n  image\n}": types.CategoryImageDataFragmentDoc,
+    "fragment categoryNameData on Category {\n  name\n}": types.CategoryNameDataFragmentDoc,
+    "fragment productCardData on Product {\n  ...productTitleData\n  ...productDescriptionData\n  ...productPriceData\n  ...productIdData\n  images\n}": types.ProductCardDataFragmentDoc,
+    "fragment productDescriptionData on Product {\n  description\n}": types.ProductDescriptionDataFragmentDoc,
+    "fragment productIdData on Product {\n  id\n}": types.ProductIdDataFragmentDoc,
     "fragment productPriceData on Product {\n  price\n}": types.ProductPriceDataFragmentDoc,
     "fragment productTitleData on Product {\n  title\n}": types.ProductTitleDataFragmentDoc,
-    "query Products($limit: Int!, $offset: Int!) {\n  products(limit: $limit, offset: $offset) {\n    id\n    title\n    price\n  }\n}": types.ProductsDocument,
-    "query homeViewProductsData($limit: Int!, $offset: Int!) {\n  products(limit: $limit, offset: $offset) {\n    id\n    title\n    price\n  }\n}": types.HomeViewProductsDataDocument,
+    "query categoryFilterCategoriesData {\n  categories {\n    id\n    name\n    image\n  }\n}": types.CategoryFilterCategoriesDataDocument,
+    "query productsViewProductsData($limit: Int!, $offset: Int!, $categoryId: Float) {\n  products(limit: $limit, offset: $offset, categoryId: $categoryId) {\n    ...productCardData\n  }\n}": types.ProductsViewProductsDataDocument,
 };
 
 /**
@@ -43,6 +55,30 @@ export function gql(source: string): unknown;
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
+export function gql(source: "fragment categoryIdData on Category {\n  id\n}"): (typeof documents)["fragment categoryIdData on Category {\n  id\n}"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "fragment categoryImageData on Category {\n  image\n}"): (typeof documents)["fragment categoryImageData on Category {\n  image\n}"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "fragment categoryNameData on Category {\n  name\n}"): (typeof documents)["fragment categoryNameData on Category {\n  name\n}"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "fragment productCardData on Product {\n  ...productTitleData\n  ...productDescriptionData\n  ...productPriceData\n  ...productIdData\n  images\n}"): (typeof documents)["fragment productCardData on Product {\n  ...productTitleData\n  ...productDescriptionData\n  ...productPriceData\n  ...productIdData\n  images\n}"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "fragment productDescriptionData on Product {\n  description\n}"): (typeof documents)["fragment productDescriptionData on Product {\n  description\n}"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "fragment productIdData on Product {\n  id\n}"): (typeof documents)["fragment productIdData on Product {\n  id\n}"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
 export function gql(source: "fragment productPriceData on Product {\n  price\n}"): (typeof documents)["fragment productPriceData on Product {\n  price\n}"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
@@ -51,11 +87,11 @@ export function gql(source: "fragment productTitleData on Product {\n  title\n}"
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "query Products($limit: Int!, $offset: Int!) {\n  products(limit: $limit, offset: $offset) {\n    id\n    title\n    price\n  }\n}"): (typeof documents)["query Products($limit: Int!, $offset: Int!) {\n  products(limit: $limit, offset: $offset) {\n    id\n    title\n    price\n  }\n}"];
+export function gql(source: "query categoryFilterCategoriesData {\n  categories {\n    id\n    name\n    image\n  }\n}"): (typeof documents)["query categoryFilterCategoriesData {\n  categories {\n    id\n    name\n    image\n  }\n}"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "query homeViewProductsData($limit: Int!, $offset: Int!) {\n  products(limit: $limit, offset: $offset) {\n    id\n    title\n    price\n  }\n}"): (typeof documents)["query homeViewProductsData($limit: Int!, $offset: Int!) {\n  products(limit: $limit, offset: $offset) {\n    id\n    title\n    price\n  }\n}"];
+export function gql(source: "query productsViewProductsData($limit: Int!, $offset: Int!, $categoryId: Float) {\n  products(limit: $limit, offset: $offset, categoryId: $categoryId) {\n    ...productCardData\n  }\n}"): (typeof documents)["query productsViewProductsData($limit: Int!, $offset: Int!, $categoryId: Float) {\n  products(limit: $limit, offset: $offset, categoryId: $categoryId) {\n    ...productCardData\n  }\n}"];
 
 export function gql(source: string) {
   return (documents as any)[source] ?? {};

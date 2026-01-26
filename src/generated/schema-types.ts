@@ -231,22 +231,32 @@ export type IUser = {
   updatedAt: Scalars['DateTime']['output'];
 };
 
+export type ICategoryIdDataFragment = { __typename?: 'Category', id: string };
+
+export type ICategoryImageDataFragment = { __typename?: 'Category', image: string };
+
+export type ICategoryNameDataFragment = { __typename?: 'Category', name: string };
+
+export type IProductCardDataFragment = { __typename?: 'Product', images: Array<string>, title: string, description: string, price: number, id: string };
+
+export type IProductDescriptionDataFragment = { __typename?: 'Product', description: string };
+
+export type IProductIdDataFragment = { __typename?: 'Product', id: string };
+
 export type IProductPriceDataFragment = { __typename?: 'Product', price: number };
 
 export type IProductTitleDataFragment = { __typename?: 'Product', title: string };
 
-export type IProductsQueryVariables = Exact<{
+export type ICategoryFilterCategoriesDataQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ICategoryFilterCategoriesDataQuery = { __typename?: 'Query', categories: Array<{ __typename?: 'Category', id: string, name: string, image: string }> };
+
+export type IProductsViewProductsDataQueryVariables = Exact<{
   limit: Scalars['Int']['input'];
   offset: Scalars['Int']['input'];
+  categoryId?: InputMaybe<Scalars['Float']['input']>;
 }>;
 
 
-export type IProductsQuery = { __typename?: 'Query', products: Array<{ __typename?: 'Product', id: string, title: string, price: number }> };
-
-export type IHomeViewProductsDataQueryVariables = Exact<{
-  limit: Scalars['Int']['input'];
-  offset: Scalars['Int']['input'];
-}>;
-
-
-export type IHomeViewProductsDataQuery = { __typename?: 'Query', products: Array<{ __typename?: 'Product', id: string, title: string, price: number }> };
+export type IProductsViewProductsDataQuery = { __typename?: 'Query', products: Array<{ __typename?: 'Product', images: Array<string>, title: string, description: string, price: number, id: string }> };

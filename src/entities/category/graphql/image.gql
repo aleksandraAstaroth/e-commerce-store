@@ -1,0 +1,3 @@
+fragment categoryImageData on Category {
+	image
+}
