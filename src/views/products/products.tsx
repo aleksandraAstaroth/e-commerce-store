@@ -1,4 +1,4 @@
-import { ResponsiveLayout } from '@/components/layout/layout'
+import { ResponsiveLayout } from '@/components/responsive-layout/responsive-layout'
 import { ProductCard } from '@/entities/product/components/card/card'
 import { getProductId } from '@/entities/product/id'
 import { IProductsViewProductsDataQuery, IProductsViewProductsDataQueryVariables } from '@/generated/schema-types'

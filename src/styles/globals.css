@@ -1,79 +1,81 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 :root {
-  --foreground: #171717;
+	--foreground: #171717;
 	--neon-color-pink: rgb(255, 0, 237);
-  --neon-color-turquoise: #00F9FF;
-  --white: rgb(255, 255, 255);
-  --background-color: rgb(23, 27, 29);
-  --text-shadow-pink: 0 0 5px var(--white),
-                      0 0 10px var(--neon-color-pink),
-                      0 0 15px var(--neon-color-pink),
-                      0 0 20px var(--neon-color-pink),
-                      0 0 25px var(--neon-color-pink);
-  --text-shadow-turquoise: 0 0 2px var(--white),
-                      0 0 5px var(--neon-color-turquoise),
-                      0 0 10px var(--neon-color-turquoise),
-                      0 0 15px var(--neon-color-turquoise),
-                      0 0 20px var(--neon-color-turquoise),
-                      0 0 25px var(--neon-color-turquoise);
-  --neon-glow-turquoise: 0 0 2px var(--white),
-              0 0 5px var(--neon-color-turquoise),
-              0 0 10px var(--neon-color-turquoise),
-              0 0 15px var(--neon-color-turquoise);
-   --neon-glow-pink: 0 0 2px var(--white),
-              0 0 5px var(--neon-color-pink),
-              0 0 10px var(--neon-color-pink),
-              0 0 15px var(--neon-color-pink);
+	--neon-color-turquoise: #00f9ff;
+	--white: rgb(255, 255, 255);
+	--background-color: rgb(23, 27, 29);
+	--text-shadow-pink:
+		0 0 5px var(--white), 0 0 10px var(--neon-color-pink), 0 0 15px var(--neon-color-pink),
+		0 0 20px var(--neon-color-pink), 0 0 25px var(--neon-color-pink);
+	--text-shadow-turquoise:
+		0 0 2px var(--white), 0 0 5px var(--neon-color-turquoise), 0 0 10px var(--neon-color-turquoise),
+		0 0 15px var(--neon-color-turquoise), 0 0 20px var(--neon-color-turquoise), 0 0 25px var(--neon-color-turquoise);
+	--neon-glow-turquoise:
+		0 0 2px var(--white), 0 0 5px var(--neon-color-turquoise), 0 0 10px var(--neon-color-turquoise),
+		0 0 15px var(--neon-color-turquoise);
+	--neon-glow-pink:
+		0 0 2px var(--white), 0 0 5px var(--neon-color-pink), 0 0 10px var(--neon-color-pink),
+		0 0 15px var(--neon-color-pink);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+	--color-background: var(--background);
+	--color-foreground: var(--foreground);
+	--font-sans: var(--font-geist-sans);
+	--font-mono: var(--font-geist-mono);
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+	:root {
+		--background: #0a0a0a;
+		--foreground: #ededed;
+	}
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+	background: var(--background);
+	color: var(--foreground);
+	font-family: Arial, Helvetica, sans-serif;
 }
 .text-neon-pink {
-  color: var(--white);
-  text-shadow: var(--text-shadow-pink);
+	color: var(--white);
+	text-shadow: var(--text-shadow-pink);
 }
 
 .text-neon-turquoise {
-  color: var(--neon-color-turquoise);
-  text-shadow: var(--text-shadow-turquoise);
+	color: var(--neon-color-turquoise);
+	text-shadow: var(--text-shadow-turquoise);
 }
 
 .glow-turquoise {
-  box-shadow: var(--neon-glow-turquoise);
+	box-shadow: var(--neon-glow-turquoise);
 }
 
 .hover-border-glow-turquoise:hover {
-  box-shadow: var(--neon-glow-turquoise);
-  border-color: var(--neon-color-turquoise);
+	box-shadow: var(--neon-glow-turquoise);
+	border-color: var(--neon-color-turquoise);
 }
 .hover-border-glow-turquoise {
-  transition: box-shadow 200ms ease, border-color 200ms ease;
+	transition:
+		box-shadow 200ms ease,
+		border-color 200ms ease;
 }
 
 .border-glow-pink {
-  box-shadow: var(--neon-glow-pink);
-  border-color: var(--neon-color-pink);
+	box-shadow: var(--neon-glow-pink);
+	border-color: var(--neon-color-pink);
 }
 
+svg {
+	@apply text-white fill-current w-6 h-6;
+}
 
-  .wrapper {
-    @apply m-auto max-w-[1480px] min-h-[calc(100vh-162px)] py-10 md:py-6 lg:px-14 md:px-14 px-4;
-  }
+button > svg {
+	@apply h-4 w-4;
+}
+
+.wrapper {
+	@apply m-auto max-w-[1480px] min-h-[calc(100vh-162px)] py-10 md:py-6 lg:px-14 md:px-14 px-4;
+}

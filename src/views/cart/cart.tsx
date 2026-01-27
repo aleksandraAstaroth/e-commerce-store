@@ -1,23 +1,44 @@
-import { ResponsiveLayout } from '@/components/layout/layout'
+import Icon from '@/components/icon'
+import ImageComponent from '@/components/image'
+import { ResponsiveLayout } from '@/components/responsive-layout/responsive-layout'
 import { IProduct } from '@/generated/schema-types'
-import { useCartStoreCartItemsIds } from '@/stores/cart-store'
+import { useCartStoreActions, useCartStoreCartItemsIds } from '@/stores/cart-store'
+import { useEffect } from 'react'
 import useSWR from 'swr'
 
 export function CartView() {
 	const cartItemsIds = useCartStoreCartItemsIds()
-	// const { clearCart } = useCartStoreActions()
-	// clearCart()
+	const { clearCart, removeFromCart } = useCartStoreActions()
+
 	const { data: products, isLoading } = useCartProducts(cartItemsIds)
+	console.log('cartItemsIds', cartItemsIds)
+	useEffect(() => {
+		if (cartItemsIds.length > 0 && !isLoading && products === undefined) {
+			clearCart()
+		}
+	}, [cartItemsIds.length, products, isLoading, clearCart])
+
 	console.log('products', products)
 	const renderCartItems = () => {
 		return (
-			<div className="grid gap-4">
+			<ul className="grid gap-2">
 				{products?.map(product => (
-					<div key={product.id} className="p-4 border border-white/20">
-						{product.title}
-					</div>
+					<li title={product.title} className="border flex items-center justify-between p-4 gap-6" key={product.id}>
+						<div className="flex items-center gap-6 h-full">
+							<div>
+								<ImageComponent src={product.images[0]} alt={product.title} width={100} height={100} />
+							</div>
+							<div className="grid justify-between items-center h-full">
+								<h3>{product.title}</h3>
+								<p className="font-bold">${product.price}</p>
+							</div>
+						</div>
+						<div className="grid cursor-pointer p-4" onClick={() => removeFromCart(Number(product.id))}>
+							<Icon src="Delete" />
+						</div>
+					</li>
 				))}
-			</div>
+			</ul>
 		)
 	}
 	return (
@@ -50,23 +71,3 @@ export function useCartProducts(ids: number[]) {
 		},
 	)
 }
-// import type { IGetProductQuery } from '@/generated/schema-types'
-// import { useQuery } from '@/hooks/use-query/use-query'
-// import useSWR from 'swr'
-// import { GET_PRODUCT_QUERY } from './graphql'
-
-// type Product = IGetProductQuery['product']
-
-// export function useCartProducts(ids: number[]) {
-// 	const key = ids.length ? ['cart-products', ids.join(',')] : null
-
-// 	return useSWR<Product[]>(key, async () => {
-// 		const results = await Promise.all(
-// 			ids.map(async id => {
-// 				const res = await useQuery<IGetProductQuery>(GET_PRODUCT_QUERY, { variables: { id: String(id) } })
-// 				return res.data?.product
-// 			}),
-// 		)
-// 		return results.filter(Boolean) as Product[]
-// 	})
-// }
