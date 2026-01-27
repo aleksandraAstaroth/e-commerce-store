@@ -1,3 +1,4 @@
+import { ResponsiveLayout } from '@/components/layout/layout'
 import { ProductCard } from '@/entities/product/components/card/card'
 import { getProductId } from '@/entities/product/id'
 import { IProductsViewProductsDataQuery, IProductsViewProductsDataQueryVariables } from '@/generated/schema-types'
@@ -8,7 +9,9 @@ import { useProductsStoreSelectedCategoryId } from './store'
 
 export function ProductsView() {
 	const selectedCategoryId = useProductsStoreSelectedCategoryId()
+
 	console.log('selectedCategoryId', selectedCategoryId)
+	console.log(selectedCategoryId)
 	const { data, isLoading } = useQuery<IProductsViewProductsDataQuery, IProductsViewProductsDataQueryVariables>(
 		PRODUCTS_VIEW_PRODUCTS_DATA_QUERY,
 		{
@@ -25,10 +28,14 @@ export function ProductsView() {
 	}
 	console.log(data)
 	return (
-		<div className="p-4 bg-black">
-			<>products view</>
-			<div className="grid grid-cols-3 gap-4">{data?.products.map(renderProductCard)}</div>
-			<CategoryFilter />
-		</div>
+		<ResponsiveLayout
+			headerSection={
+				<div>
+					<h1 className="text-3xl font-bold">Products</h1>
+				</div>
+			}
+			rightSection={<CategoryFilter />}
+			leftSection={<div className="grid grid-cols-3 gap-4">{data?.products.map(renderProductCard)}</div>}
+		/>
 	)
 }

@@ -17,25 +17,29 @@ type Documents = {
     "fragment categoryIdData on Category {\n  id\n}": typeof types.CategoryIdDataFragmentDoc,
     "fragment categoryImageData on Category {\n  image\n}": typeof types.CategoryImageDataFragmentDoc,
     "fragment categoryNameData on Category {\n  name\n}": typeof types.CategoryNameDataFragmentDoc,
-    "fragment productCardData on Product {\n  ...productTitleData\n  ...productDescriptionData\n  ...productPriceData\n  ...productIdData\n  images\n}": typeof types.ProductCardDataFragmentDoc,
+    "fragment productCardData on Product {\n  ...productTitleData\n  ...productDescriptionData\n  ...productPriceData\n  ...productIdData\n  images\n  category {\n    ...categoryIdData\n    ...categoryNameData\n  }\n  ...addToCartActionButtonData\n}": typeof types.ProductCardDataFragmentDoc,
     "fragment productDescriptionData on Product {\n  description\n}": typeof types.ProductDescriptionDataFragmentDoc,
     "fragment productIdData on Product {\n  id\n}": typeof types.ProductIdDataFragmentDoc,
     "fragment productPriceData on Product {\n  price\n}": typeof types.ProductPriceDataFragmentDoc,
     "fragment productTitleData on Product {\n  title\n}": typeof types.ProductTitleDataFragmentDoc,
+    "fragment addToCartActionButtonData on Product {\n  ...productIdData\n}": typeof types.AddToCartActionButtonDataFragmentDoc,
+    "query getProduct($id: ID!) {\n  product(id: $id) {\n    id\n    title\n    price\n    images\n  }\n}": typeof types.GetProductDocument,
     "query categoryFilterCategoriesData {\n  categories {\n    id\n    name\n    image\n  }\n}": typeof types.CategoryFilterCategoriesDataDocument,
-    "query productsViewProductsData($limit: Int!, $offset: Int!, $categoryId: Float) {\n  products(limit: $limit, offset: $offset, categoryId: $categoryId) {\n    ...productCardData\n  }\n}": typeof types.ProductsViewProductsDataDocument,
+    "query productsViewProductsData($limit: Int!, $offset: Int!, $categoryId: Float) {\n  products(limit: $limit, offset: $offset, categoryId: $categoryId) {\n    ...productCardData\n    category {\n      ...categoryIdData\n      ...categoryNameData\n    }\n  }\n}": typeof types.ProductsViewProductsDataDocument,
 };
 const documents: Documents = {
     "fragment categoryIdData on Category {\n  id\n}": types.CategoryIdDataFragmentDoc,
     "fragment categoryImageData on Category {\n  image\n}": types.CategoryImageDataFragmentDoc,
     "fragment categoryNameData on Category {\n  name\n}": types.CategoryNameDataFragmentDoc,
-    "fragment productCardData on Product {\n  ...productTitleData\n  ...productDescriptionData\n  ...productPriceData\n  ...productIdData\n  images\n}": types.ProductCardDataFragmentDoc,
+    "fragment productCardData on Product {\n  ...productTitleData\n  ...productDescriptionData\n  ...productPriceData\n  ...productIdData\n  images\n  category {\n    ...categoryIdData\n    ...categoryNameData\n  }\n  ...addToCartActionButtonData\n}": types.ProductCardDataFragmentDoc,
     "fragment productDescriptionData on Product {\n  description\n}": types.ProductDescriptionDataFragmentDoc,
     "fragment productIdData on Product {\n  id\n}": types.ProductIdDataFragmentDoc,
     "fragment productPriceData on Product {\n  price\n}": types.ProductPriceDataFragmentDoc,
     "fragment productTitleData on Product {\n  title\n}": types.ProductTitleDataFragmentDoc,
+    "fragment addToCartActionButtonData on Product {\n  ...productIdData\n}": types.AddToCartActionButtonDataFragmentDoc,
+    "query getProduct($id: ID!) {\n  product(id: $id) {\n    id\n    title\n    price\n    images\n  }\n}": types.GetProductDocument,
     "query categoryFilterCategoriesData {\n  categories {\n    id\n    name\n    image\n  }\n}": types.CategoryFilterCategoriesDataDocument,
-    "query productsViewProductsData($limit: Int!, $offset: Int!, $categoryId: Float) {\n  products(limit: $limit, offset: $offset, categoryId: $categoryId) {\n    ...productCardData\n  }\n}": types.ProductsViewProductsDataDocument,
+    "query productsViewProductsData($limit: Int!, $offset: Int!, $categoryId: Float) {\n  products(limit: $limit, offset: $offset, categoryId: $categoryId) {\n    ...productCardData\n    category {\n      ...categoryIdData\n      ...categoryNameData\n    }\n  }\n}": types.ProductsViewProductsDataDocument,
 };
 
 /**
@@ -67,7 +71,7 @@ export function gql(source: "fragment categoryNameData on Category {\n  name\n}"
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "fragment productCardData on Product {\n  ...productTitleData\n  ...productDescriptionData\n  ...productPriceData\n  ...productIdData\n  images\n}"): (typeof documents)["fragment productCardData on Product {\n  ...productTitleData\n  ...productDescriptionData\n  ...productPriceData\n  ...productIdData\n  images\n}"];
+export function gql(source: "fragment productCardData on Product {\n  ...productTitleData\n  ...productDescriptionData\n  ...productPriceData\n  ...productIdData\n  images\n  category {\n    ...categoryIdData\n    ...categoryNameData\n  }\n  ...addToCartActionButtonData\n}"): (typeof documents)["fragment productCardData on Product {\n  ...productTitleData\n  ...productDescriptionData\n  ...productPriceData\n  ...productIdData\n  images\n  category {\n    ...categoryIdData\n    ...categoryNameData\n  }\n  ...addToCartActionButtonData\n}"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -87,11 +91,19 @@ export function gql(source: "fragment productTitleData on Product {\n  title\n}"
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
+export function gql(source: "fragment addToCartActionButtonData on Product {\n  ...productIdData\n}"): (typeof documents)["fragment addToCartActionButtonData on Product {\n  ...productIdData\n}"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "query getProduct($id: ID!) {\n  product(id: $id) {\n    id\n    title\n    price\n    images\n  }\n}"): (typeof documents)["query getProduct($id: ID!) {\n  product(id: $id) {\n    id\n    title\n    price\n    images\n  }\n}"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
 export function gql(source: "query categoryFilterCategoriesData {\n  categories {\n    id\n    name\n    image\n  }\n}"): (typeof documents)["query categoryFilterCategoriesData {\n  categories {\n    id\n    name\n    image\n  }\n}"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "query productsViewProductsData($limit: Int!, $offset: Int!, $categoryId: Float) {\n  products(limit: $limit, offset: $offset, categoryId: $categoryId) {\n    ...productCardData\n  }\n}"): (typeof documents)["query productsViewProductsData($limit: Int!, $offset: Int!, $categoryId: Float) {\n  products(limit: $limit, offset: $offset, categoryId: $categoryId) {\n    ...productCardData\n  }\n}"];
+export function gql(source: "query productsViewProductsData($limit: Int!, $offset: Int!, $categoryId: Float) {\n  products(limit: $limit, offset: $offset, categoryId: $categoryId) {\n    ...productCardData\n    category {\n      ...categoryIdData\n      ...categoryNameData\n    }\n  }\n}"): (typeof documents)["query productsViewProductsData($limit: Int!, $offset: Int!, $categoryId: Float) {\n  products(limit: $limit, offset: $offset, categoryId: $categoryId) {\n    ...productCardData\n    category {\n      ...categoryIdData\n      ...categoryNameData\n    }\n  }\n}"];
 
 export function gql(source: string) {
   return (documents as any)[source] ?? {};

@@ -2,13 +2,9 @@ import { getCategoryId } from '@/entities/category/id'
 import { getCategoryName } from '@/entities/category/name'
 import { ICategoryFilterCategoriesDataQuery } from '@/generated/schema-types'
 import { useQuery } from '@/hooks/use-query/use-query'
-import { filter, includes, pipe } from 'ramda'
 import { twMerge } from 'tailwind-merge'
 import { useProductsStoreActions, useProductsStoreSelectedCategoryId } from '../../store'
 import { CATEGORY_FILTER_CATEGORIES_DATA_QUERY } from './graphql'
-
-// Only allow these categories to be displayed in the filter due to use of public API
-const ALLOWED_CATEGORY_NAMES = ['Clothes', 'Furniture', 'Electronics', 'Shoes', 'Miscellaneous'] as const
 
 export function CategoryFilter() {
 	const { data, isLoading } = useQuery<ICategoryFilterCategoriesDataQuery>(CATEGORY_FILTER_CATEGORIES_DATA_QUERY)
@@ -18,24 +14,30 @@ export function CategoryFilter() {
 
 	if (isLoading) return <div className="text-white/70">Loading categories…</div>
 
-	const allowed = ALLOWED_CATEGORY_NAMES as readonly string[]
+	const categories = data?.categories
 
-	type QueryCategory = ICategoryFilterCategoriesDataQuery['categories'][number]
+	const isAllSelected = selectedCategoryId == null
 
-	const categories = pipe(filter((category: QueryCategory) => includes(getCategoryName(category), allowed)))(
-		data?.categories ?? [],
+	const renderAllCategory = () => (
+		<li
+			key="all"
+			className={twMerge('cursor-pointer', isAllSelected && 'border-l-2 border-purple-400')}
+			onClick={() => setSelectedCategoryId(null)}
+		>
+			<button className="px-3 py-1 w-full text-left cursor-pointer border text-white border-white/20">All</button>
+		</li>
 	)
 
 	const renderCategory = (category: ICategoryFilterCategoriesDataQuery['categories'][number]) => {
-		const id = getCategoryId(category)
+		const id = Number(getCategoryId(category))
 		const isSelected = selectedCategoryId === id
 		return (
 			<li
 				key={id}
-				className={twMerge('cursor-pointer', isSelected && 'border-l-2 border-purple-400')}
+				className={twMerge('cursor-pointer', isSelected && 'border-l-2 border-purple-400 ')}
 				onClick={() => setSelectedCategoryId(id)}
 			>
-				<button className="px-3 py-1 cursor-pointer border text-white border-white/20">
+				<button className="px-3 py-1 w-full text-left cursor-pointer border text-white border-white/20">
 					{getCategoryName(category)}
 				</button>
 			</li>
@@ -44,7 +46,10 @@ export function CategoryFilter() {
 
 	return (
 		<div className="grid gap-2">
-			<ul className="grid">{categories.map(renderCategory)}</ul>
+			<ul className="grid">
+				{renderAllCategory()}
+				{categories?.map(renderCategory)}
+			</ul>
 		</div>
 	)
 }

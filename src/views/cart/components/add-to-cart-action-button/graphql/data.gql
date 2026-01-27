@@ -1,0 +1,4 @@
+#import "../../../../../entities//product/graphql/id.gql"
+fragment addToCartActionButtonData on Product {
+	...productIdData
+}

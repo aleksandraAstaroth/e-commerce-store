@@ -2,6 +2,8 @@
 #import '../../../graphql/id.gql'
 #import '../../../graphql/price.gql'
 #import '../../../graphql/title.gql'
+#import '../../../../category/graphql/id.gql'
+#import '../../../../../views/cart/components/add-to-cart-action-button/graphql/data.gql'
 
 fragment productCardData on Product {
 	...productTitleData
@@ -9,4 +11,9 @@ fragment productCardData on Product {
 	...productPriceData
 	...productIdData
 	images
+	category {
+		...categoryIdData
+		...categoryNameData
+	}
+	...addToCartActionButtonData
 }

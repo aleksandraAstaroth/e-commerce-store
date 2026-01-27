@@ -21,6 +21,10 @@
               0 0 5px var(--neon-color-turquoise),
               0 0 10px var(--neon-color-turquoise),
               0 0 15px var(--neon-color-turquoise);
+   --neon-glow-pink: 0 0 2px var(--white),
+              0 0 5px var(--neon-color-pink),
+              0 0 10px var(--neon-color-pink),
+              0 0 15px var(--neon-color-pink);
 }
 
 @theme inline {
@@ -64,7 +68,12 @@ body {
   transition: box-shadow 200ms ease, border-color 200ms ease;
 }
 
+.border-glow-pink {
+  box-shadow: var(--neon-glow-pink);
+  border-color: var(--neon-color-pink);
+}
+
 
   .wrapper {
-    @apply m-auto max-w-[1480px] min-h-[calc(100vh-162px)] py-3 lg:px-14 md:px-14 px-4;
+    @apply m-auto max-w-[1480px] min-h-[calc(100vh-162px)] py-10 md:py-6 lg:px-14 md:px-14 px-4;
   }
