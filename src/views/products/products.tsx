@@ -1,3 +1,4 @@
+import { LoadingSpinner } from '@/components/loading/loading'
 import { ResponsiveLayout } from '@/components/responsive-layout/responsive-layout'
 import { ProductCard } from '@/entities/product/components/card/card'
 import { getProductId } from '@/entities/product/id'
@@ -26,7 +27,13 @@ export function ProductsView() {
 	const renderProductCard = (card: IProductsViewProductsDataQuery['products'][number]) => {
 		return <ProductCard key={getProductId(card)} data={card} />
 	}
-	console.log(data)
+	if (isLoading) {
+		return (
+			<div className="grid place-items-center py-10">
+				<LoadingSpinner size="lg" />
+			</div>
+		)
+	}
 	return (
 		<ResponsiveLayout
 			headerSection={

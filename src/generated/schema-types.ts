@@ -247,6 +247,31 @@ export type IProductPriceDataFragment = { __typename?: 'Product', price: number 
 
 export type IProductTitleDataFragment = { __typename?: 'Product', title: string };
 
+export type IAddUserMutationVariables = Exact<{
+  data: ICreateUserDto;
+}>;
+
+
+export type IAddUserMutation = { __typename?: 'Mutation', addUser: { __typename?: 'User', name: string, email: string, avatar: string, password: string } };
+
+export type ILoginMutationVariables = Exact<{
+  email: Scalars['String']['input'];
+  password: Scalars['String']['input'];
+}>;
+
+
+export type ILoginMutation = { __typename?: 'Mutation', login: { __typename?: 'Login', access_token: string, refresh_token: string } };
+
+export type IGetUsersQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type IGetUsersQuery = { __typename?: 'Query', users: Array<{ __typename?: 'User', id: string, name: string, email: string }> };
+
+export type IMyProfileQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type IMyProfileQuery = { __typename?: 'Query', myProfile: { __typename?: 'User', id: string, name: string, avatar: string, email: string, role: string } };
+
 export type IAddToCartActionButtonDataFragment = { __typename?: 'Product', id: string };
 
 export type IGetProductQueryVariables = Exact<{

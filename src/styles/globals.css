@@ -18,6 +18,8 @@
 	--neon-glow-pink:
 		0 0 2px var(--white), 0 0 5px var(--neon-color-pink), 0 0 10px var(--neon-color-pink),
 		0 0 15px var(--neon-color-pink);
+	--animate-spin: spin 1s linear infinite;
+	--color-red: #ff1f1f;
 }
 
 @theme inline {
@@ -25,6 +27,10 @@
 	--color-foreground: var(--foreground);
 	--font-sans: var(--font-geist-sans);
 	--font-mono: var(--font-geist-mono);
+	--animate-spin: spin 1s linear infinite;
+	--color-red: var(--color-red);
+	--color-neon-pink: rgb(255, 0, 237);
+	--color-neon-turquoise: #00f9ff;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -74,6 +80,12 @@ svg {
 
 button > svg {
 	@apply h-4 w-4;
+}
+
+@keyframes spin {
+	to {
+		transform: rotate(360deg);
+	}
 }
 
 .wrapper {

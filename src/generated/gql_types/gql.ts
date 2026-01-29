@@ -22,6 +22,10 @@ type Documents = {
     "fragment productIdData on Product {\n  id\n}": typeof types.ProductIdDataFragmentDoc,
     "fragment productPriceData on Product {\n  price\n}": typeof types.ProductPriceDataFragmentDoc,
     "fragment productTitleData on Product {\n  title\n}": typeof types.ProductTitleDataFragmentDoc,
+    "mutation addUser($data: CreateUserDto!) {\n  addUser(data: $data) {\n    name\n    email\n    avatar\n    password\n    name\n  }\n}": typeof types.AddUserDocument,
+    "mutation login($email: String!, $password: String!) {\n  login(email: $email, password: $password) {\n    access_token\n    refresh_token\n  }\n}": typeof types.LoginDocument,
+    "query getUsers {\n  users {\n    id\n    name\n    email\n  }\n}": typeof types.GetUsersDocument,
+    "query myProfile {\n  myProfile {\n    id\n    name\n    avatar\n    email\n    role\n  }\n}": typeof types.MyProfileDocument,
     "fragment addToCartActionButtonData on Product {\n  ...productIdData\n}": typeof types.AddToCartActionButtonDataFragmentDoc,
     "query getProduct($id: ID!) {\n  product(id: $id) {\n    id\n    title\n    price\n    images\n  }\n}": typeof types.GetProductDocument,
     "query categoryFilterCategoriesData {\n  categories {\n    id\n    name\n    image\n  }\n}": typeof types.CategoryFilterCategoriesDataDocument,
@@ -36,6 +40,10 @@ const documents: Documents = {
     "fragment productIdData on Product {\n  id\n}": types.ProductIdDataFragmentDoc,
     "fragment productPriceData on Product {\n  price\n}": types.ProductPriceDataFragmentDoc,
     "fragment productTitleData on Product {\n  title\n}": types.ProductTitleDataFragmentDoc,
+    "mutation addUser($data: CreateUserDto!) {\n  addUser(data: $data) {\n    name\n    email\n    avatar\n    password\n    name\n  }\n}": types.AddUserDocument,
+    "mutation login($email: String!, $password: String!) {\n  login(email: $email, password: $password) {\n    access_token\n    refresh_token\n  }\n}": types.LoginDocument,
+    "query getUsers {\n  users {\n    id\n    name\n    email\n  }\n}": types.GetUsersDocument,
+    "query myProfile {\n  myProfile {\n    id\n    name\n    avatar\n    email\n    role\n  }\n}": types.MyProfileDocument,
     "fragment addToCartActionButtonData on Product {\n  ...productIdData\n}": types.AddToCartActionButtonDataFragmentDoc,
     "query getProduct($id: ID!) {\n  product(id: $id) {\n    id\n    title\n    price\n    images\n  }\n}": types.GetProductDocument,
     "query categoryFilterCategoriesData {\n  categories {\n    id\n    name\n    image\n  }\n}": types.CategoryFilterCategoriesDataDocument,
@@ -88,6 +96,22 @@ export function gql(source: "fragment productPriceData on Product {\n  price\n}"
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(source: "fragment productTitleData on Product {\n  title\n}"): (typeof documents)["fragment productTitleData on Product {\n  title\n}"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "mutation addUser($data: CreateUserDto!) {\n  addUser(data: $data) {\n    name\n    email\n    avatar\n    password\n    name\n  }\n}"): (typeof documents)["mutation addUser($data: CreateUserDto!) {\n  addUser(data: $data) {\n    name\n    email\n    avatar\n    password\n    name\n  }\n}"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "mutation login($email: String!, $password: String!) {\n  login(email: $email, password: $password) {\n    access_token\n    refresh_token\n  }\n}"): (typeof documents)["mutation login($email: String!, $password: String!) {\n  login(email: $email, password: $password) {\n    access_token\n    refresh_token\n  }\n}"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "query getUsers {\n  users {\n    id\n    name\n    email\n  }\n}"): (typeof documents)["query getUsers {\n  users {\n    id\n    name\n    email\n  }\n}"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "query myProfile {\n  myProfile {\n    id\n    name\n    avatar\n    email\n    role\n  }\n}"): (typeof documents)["query myProfile {\n  myProfile {\n    id\n    name\n    avatar\n    email\n    role\n  }\n}"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

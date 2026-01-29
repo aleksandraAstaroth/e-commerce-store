@@ -18,13 +18,13 @@ export function useQuery<TQuery, TQueryVariables extends Variables = Variables>(
 		customKey?: string
 	},
 ) {
-	const client = new GraphQLClient('https://api.escuelajs.co/graphql')
+	const client = new GraphQLClient(getGqlPath())
 
 	const key = options?.customKey
 		? [options?.customKey, options?.skip]
 		: options?.variables != null
-		? [document, JSON.stringify(options?.variables), options?.skip]
-		: [document, options?.skip]
+			? [document, JSON.stringify(options?.variables), options?.skip]
+			: [document, options?.skip]
 	const swr = useSWR<TQuery, TQueryVariables>(
 		key,
 		options?.skip ? null : async () => client.request<TQuery>(document, options?.variables),
