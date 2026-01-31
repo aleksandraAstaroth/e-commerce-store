@@ -1,11 +1,10 @@
 'use client'
 import Icon from '@/components/icon'
-import { ChangeEventHandler, KeyboardEventHandler, ReactNode, RefObject, useId } from 'react'
+import { ChangeEventHandler, FocusEventHandler, KeyboardEventHandler, ReactNode, RefObject, useId } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { LoadingSpinner } from '../loading/loading'
 
 export type InputFieldProps = {
-	onCleared?: () => void
 	hasError?: boolean
 	leadingElements?: ReactNode
 	trailingElements?: ReactNode
@@ -15,11 +14,11 @@ export type InputFieldProps = {
 	inputRef?: RefObject<HTMLInputElement | null>
 	onChange?: ChangeEventHandler<HTMLInputElement>
 	onKeyUp?: KeyboardEventHandler<HTMLInputElement>
+	onBlur?: FocusEventHandler<HTMLInputElement>
 	value?: string
 	name?: string
 	loading?: boolean
 	focused?: boolean
-	dense?: boolean
 	autoFocus?: boolean
 } & { type?: Exclude<React.InputHTMLAttributes<HTMLInputElement>['type'], 'number'> }
 
@@ -31,6 +30,7 @@ export function InputField({
 	placeholder,
 	label,
 	inputRef,
+	onBlur,
 	onChange,
 	value,
 	name,
@@ -38,7 +38,6 @@ export function InputField({
 	onKeyUp,
 	type,
 	focused,
-	dense,
 	autoFocus,
 }: InputFieldProps) {
 	const id = useId()
@@ -74,7 +73,6 @@ export function InputField({
 				className={twMerge(
 					'group min-h-14 cursor-text data-[focused=true]:border-neon-turquoise focus-within:border-neon-turquoise  border-solid border rounded-sm pl-3 py-1 flex gap-3 items-center aria-invalid:border-red aria-disabled:bg-disabled aria-disabled:text-on-disabled aria-disabled:cursor-not-allowed data-[readonly=true]:cursor-default',
 					leadingElements ? 'pr-3' : undefined,
-					dense ? 'min-h-8' : undefined,
 				)}
 			>
 				{leadingElements ? <div className="grid w-fit items-center grid-flow-col gap-3">{leadingElements}</div> : null}
@@ -83,6 +81,7 @@ export function InputField({
 						type={type}
 						autoFocus={autoFocus}
 						name={name}
+						onBlur={onBlur}
 						value={value}
 						onChange={handleChange}
 						onInput={handleChange}
@@ -105,7 +104,7 @@ export function InputField({
 				{trailingElements ? <div className="grid items-center grid-flow-col gap-3">{trailingElements}</div> : null}
 			</label>
 			{supportingText ? (
-				<span aria-invalid={hasError} className="d  aria-invalid:text-color-red">
+				<span aria-invalid={hasError} className="text-xs aria-invalid:text-red">
 					{supportingText}
 				</span>
 			) : null}

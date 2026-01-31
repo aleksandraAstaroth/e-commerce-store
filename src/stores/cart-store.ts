@@ -1,20 +1,29 @@
-import { append, uniq, without } from 'ramda'
+import { append, evolve, find, inc, map, propEq, reject } from 'ramda'
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { useShallow } from 'zustand/shallow'
+export type CartItem = {
+	id: number
+	name?: string | null
+	price?: number | null
+	image?: string | null
+	quantity: number
+}
 
 type CartStore = {
-	cartItemsIds: number[]
+	cartItems: CartItem[]
 	actions: {
-		setCartItemsIds: (ids: number[]) => void
-		addToCart: (id: number) => void
+		setCartItems: (items: CartItem[]) => void
+		addProduct: (item: Omit<CartItem, 'quantity'>) => void
 		removeFromCart: (id: number) => void
+		increase: (id: number) => void
+		decrease: (id: number) => void
 		clearCart: () => void
 	}
 }
 
 const storeDefaults: Omit<CartStore, 'actions'> = {
-	cartItemsIds: [],
+	cartItems: [],
 }
 
 export const useCartStore = create<CartStore>()(
@@ -22,29 +31,49 @@ export const useCartStore = create<CartStore>()(
 		set => ({
 			...storeDefaults,
 			actions: {
-				setCartItemsIds: ids => {
-					set({ cartItemsIds: ids })
+				setCartItems: items => {
+					set({ cartItems: items })
 				},
-				addToCart: id => {
-					if (!Number.isFinite(id)) return
-					set(state => ({
-						cartItemsIds: uniq(append(id, state.cartItemsIds)),
-					}))
+				addProduct: (item: Omit<CartItem, 'quantity'>) => {
+					if (!Number.isFinite(item.id)) return
+					set(state => {
+						const exists = find(propEq(item.id, 'id'), state.cartItems)
+						if (!exists) {
+							return {
+								cartItems: append({ ...item, quantity: 1 }, state.cartItems),
+							}
+						}
+						return {
+							cartItems: map(p => (p.id === item.id ? evolve({ quantity: inc }, p) : p), state.cartItems),
+						}
+					})
 				},
-
 				removeFromCart: id => {
 					set(state => ({
-						cartItemsIds: without([id], state.cartItemsIds),
+						cartItems: reject(propEq(id, 'id'), state.cartItems),
+					}))
+				},
+				increase: id => {
+					set(state => ({
+						cartItems: state.cartItems.map(p => (p.id === id ? { ...p, quantity: p.quantity + 1 } : p)),
 					}))
 				},
 
-				clearCart: () => set({ cartItemsIds: [] }),
+				decrease: id => {
+					set(state => ({
+						cartItems: state.cartItems
+							.map(p => (p.id === id ? { ...p, quantity: p.quantity - 1 } : p))
+							.filter(p => p.quantity > 0),
+					}))
+				},
+
+				clearCart: () => set({ cartItems: [] }),
 			},
 		}),
 		{
 			name: 'cart-store', // localStorage key
 			partialize: state => ({
-				cartItemsIds: state.cartItemsIds,
+				cartItems: state.cartItems,
 			}),
 		},
 	),
@@ -54,10 +83,18 @@ export function useCartStoreActions() {
 	return useCartStore(useShallow(state => state.actions))
 }
 
-export function useCartStoreCartItemsIds() {
-	return useCartStore(state => state.cartItemsIds)
+export function useCartStoreCartItems() {
+	return useCartStore(state => state.cartItems)
+}
+
+export function useCartStoreQuantityById(id: number) {
+	return useCartStore(state => state.cartItems.find(item => item.id === id)?.quantity ?? 0)
+}
+
+export function useCartStoreTotalQuantity() {
+	return useCartStore(state => state.cartItems.reduce((sum, item) => sum + item.quantity, 0))
 }
 
 export function useCartStoreTotalCount() {
-	return useCartStore(state => state.cartItemsIds.length)
+	return useCartStore(state => state.cartItems.length)
 }

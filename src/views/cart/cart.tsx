@@ -1,43 +1,56 @@
 import Icon from '@/components/icon'
 import ImageComponent from '@/components/image'
+import { QuantityCounter } from '@/components/quantity-counter/quantity-counter'
 import { ResponsiveLayout } from '@/components/responsive-layout/responsive-layout'
 import { IProduct } from '@/generated/schema-types'
-import { useCartStoreActions, useCartStoreCartItemsIds } from '@/stores/cart-store'
+import { useCartStoreActions, useCartStoreCartItems } from '@/stores/cart-store'
 import { useEffect } from 'react'
 import useSWR from 'swr'
 
 export function CartView() {
-	const cartItemsIds = useCartStoreCartItemsIds()
-	const { clearCart, removeFromCart } = useCartStoreActions()
+	const cartItems = useCartStoreCartItems()
+	const { clearCart, removeFromCart, increase, decrease } = useCartStoreActions()
 
-	const { data: products, isLoading } = useCartProducts(cartItemsIds)
-	console.log('cartItemsIds', cartItemsIds)
+	const getQuantity = (id: number) => cartItems.find(item => item.id === id)?.quantity ?? 0
+
+	const onIncrease = (id: number) => increase(id)
+	const onDecrease = (id: number) => decrease(id)
+
+	const { data: products, isLoading } = useCartProducts(cartItems.map(item => item.id))
+
 	useEffect(() => {
-		if (cartItemsIds.length > 0 && !isLoading && products === undefined) {
+		if (cartItems.length > 0 && !isLoading && products === undefined) {
 			clearCart()
 		}
-	}, [cartItemsIds.length, products, isLoading, clearCart])
+	}, [cartItems.length, products, isLoading, clearCart])
 
-	console.log('products', products)
 	const renderCartItems = () => {
 		return (
 			<ul className="grid gap-2">
-				{products?.map(product => (
-					<li title={product.title} className="border flex items-center justify-between p-4 gap-6" key={product.id}>
-						<div className="flex items-center gap-6 h-full">
-							<div>
-								<ImageComponent src={product.images[0]} alt={product.title} width={100} height={100} />
+				{products?.map(product => {
+					return (
+						<li title={product.title} className="border flex items-center justify-between p-4 gap-6" key={product.id}>
+							<div className="flex items-center gap-6 h-full">
+								<div>
+									<ImageComponent src={product.images[0]} alt={product.title} width={100} height={100} />
+								</div>
+								<div className="grid justify-between items-center h-full">
+									<h3>{product.title}</h3>
+									<p className="font-bold">${product.price}</p>
+								</div>
+								<QuantityCounter
+									quantity={getQuantity(Number(product.id))}
+									onIncrease={() => onIncrease(Number(product.id))}
+									onDecrease={() => onDecrease(Number(product.id))}
+									onRemove={() => removeFromCart(Number(product.id))}
+								/>
 							</div>
-							<div className="grid justify-between items-center h-full">
-								<h3>{product.title}</h3>
-								<p className="font-bold">${product.price}</p>
+							<div className="grid cursor-pointer p-4" onClick={() => removeFromCart(Number(product.id))}>
+								<Icon src="Delete" />
 							</div>
-						</div>
-						<div className="grid cursor-pointer p-4" onClick={() => removeFromCart(Number(product.id))}>
-							<Icon src="Delete" />
-						</div>
-					</li>
-				))}
+						</li>
+					)
+				})}
 			</ul>
 		)
 	}

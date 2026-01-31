@@ -1,7 +1,6 @@
 import { ILoginMutation, ILoginMutationVariables } from '@/generated/schema-types'
 import { LOGIN_MUTATION } from '@/graphql/mutations/login'
 import { getGqlPath } from '@/hooks/use-query/use-query'
-import { UserRole } from '@/types/next-auth'
 import { GraphQLClient } from 'graphql-request'
 import NextAuth, { NextAuthOptions } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
@@ -43,7 +42,7 @@ export const authOptions: NextAuthOptions = {
 						name: user.name ?? null,
 						image: user.avatar ?? null,
 						email: user.email ?? null,
-						role: (user.role as UserRole) ?? null,
+						role: user.role ?? null,
 						accessToken,
 						refreshToken,
 					}
