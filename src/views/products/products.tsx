@@ -11,8 +11,6 @@ import { useProductsStoreSelectedCategoryId } from './store'
 export function ProductsView() {
 	const selectedCategoryId = useProductsStoreSelectedCategoryId()
 
-	console.log('selectedCategoryId', selectedCategoryId)
-	console.log(selectedCategoryId)
 	const { data, isLoading } = useQuery<IProductsViewProductsDataQuery, IProductsViewProductsDataQueryVariables>(
 		PRODUCTS_VIEW_PRODUCTS_DATA_QUERY,
 		{

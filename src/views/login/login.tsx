@@ -38,6 +38,7 @@ export default function LoginView() {
 		window.location.href = res.url ?? '/'
 	}
 	const { data, isLoading } = useQuery<IGetUsersQuery, IGetUsersQueryVariables>(GET_USERS_QUERY)
+
 	console.log(data)
 	return (
 		<div className="wrapper flex justify-center">

@@ -7,10 +7,7 @@ export default function Card({
 	...rest
 }: { children: ReactNode } & DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>) {
 	return (
-		<div
-			className={twMerge('bg-black border-2 border-neon-glow-turquoise rounded overflow-clip )]', className)}
-			{...rest}
-		>
+		<div className={twMerge('border-2 border-white/20  rounded overflow-clip )]', className)} {...rest}>
 			{children}
 		</div>
 	)

@@ -8,8 +8,8 @@ export function ImageComponent({
 	alt,
 	...props
 }: { src: string; alt: string; unoptimized?: boolean } & Omit<ImageProps, 'src' | 'alt'>) {
-	if (!src) return null
 	const [showFallback, setShowFallback] = useState(false)
+	if (!src) return null
 
 	const handleError: ReactEventHandler<HTMLImageElement | HTMLVideoElement> = () => {
 		setShowFallback(true)

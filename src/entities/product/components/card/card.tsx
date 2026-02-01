@@ -11,7 +11,9 @@ import { getProductTitle } from '../../title'
 export function ProductCard({ data }: { data: IProductCardDataFragment | null | undefined }) {
 	const imageUrl = data?.images?.[0] ?? ''
 	const productId = getProductId(data)
+
 	if (!productId) return null
+
 	return (
 		<Card className="grid md:p-4 gap-1 lg:p-7 hover-border-glow-turquoise max-w-[24rem]">
 			<div className="relative h-72 w-full">
