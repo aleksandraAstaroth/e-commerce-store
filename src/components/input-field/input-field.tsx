@@ -6,7 +6,6 @@ import { LoadingSpinner } from '../loading/loading'
 
 export type InputFieldProps = {
 	hasError?: boolean
-	leadingElements?: ReactNode
 	trailingElements?: ReactNode
 	supportingText?: ReactNode
 	placeholder?: string
@@ -23,7 +22,6 @@ export type InputFieldProps = {
 } & { type?: Exclude<React.InputHTMLAttributes<HTMLInputElement>['type'], 'number'> }
 
 export function InputField({
-	leadingElements,
 	trailingElements,
 	hasError,
 	supportingText,
@@ -71,11 +69,9 @@ export function InputField({
 					e.currentTarget.getElementsByTagName('input')[0].focus()
 				}}
 				className={twMerge(
-					'group min-h-14 cursor-text data-[focused=true]:border-neon-turquoise focus-within:border-neon-turquoise  border-solid border rounded-sm pl-3 py-1 flex gap-3 items-center aria-invalid:border-red aria-disabled:bg-disabled aria-disabled:text-on-disabled aria-disabled:cursor-not-allowed data-[readonly=true]:cursor-default',
-					leadingElements ? 'pr-3' : undefined,
+					'group min-h-14 cursor-text data-[focused=true]:border-neon-turquoise focus-within:border-neon-turquoise  border-solid border rounded-sm pl-3 py-1 flex gap-3 items-center aria-invalid:border-red aria-disabled:bg-disabled aria-disabled:text-on-disabled aria-disabled:cursor-not-allowed data-[readonly=true]:cursor-default pr-3',
 				)}
 			>
-				{leadingElements ? <div className="grid w-fit items-center grid-flow-col gap-3">{leadingElements}</div> : null}
 				<div className="flex flex-1 flex-col-reverse overflow-hidden">
 					<input
 						type={type}
@@ -100,7 +96,7 @@ export function InputField({
 				<div hidden={!loading}>
 					<LoadingSpinner size="sm" />
 				</div>
-				{hasError ? <Icon src="Warning" className="text-color-red" /> : null}
+				{hasError ? <Icon src="Warning" className="text-red!" /> : null}
 				{trailingElements ? <div className="grid items-center grid-flow-col gap-3">{trailingElements}</div> : null}
 			</label>
 			{supportingText ? (

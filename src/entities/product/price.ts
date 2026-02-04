@@ -1,6 +1,5 @@
-import { IProductPriceDataFragment } from "@/generated/schema-types";
-
+import { IProductPriceDataFragment } from '@/generated/schema-types'
 
 export function getProductPrice(data: IProductPriceDataFragment | null | undefined) {
-    return data?.price ?? 0
+	return data?.price ?? 0
 }

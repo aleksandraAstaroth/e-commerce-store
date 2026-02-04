@@ -247,6 +247,12 @@ export type IProductPriceDataFragment = { __typename?: 'Product', price: number 
 
 export type IProductTitleDataFragment = { __typename?: 'Product', title: string };
 
+export type IUserAvatarDataFragment = { __typename?: 'User', avatar: string };
+
+export type IUserIdDataFragment = { __typename?: 'User', id: string };
+
+export type IUserNameDataFragment = { __typename?: 'User', name: string };
+
 export type IAddUserMutationVariables = Exact<{
   data: ICreateUserDto;
 }>;

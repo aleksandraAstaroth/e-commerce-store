@@ -51,7 +51,7 @@ export function Dropdown({
 					className={[
 						'absolute z-50',
 						'mt-2',
-						menuClassName ?? 'w-max bad dark:bg-grayshade-500 bg-white p-4 rounded-md shadow-lg',
+						menuClassName ?? 'shadow-neon-pink bg-black p-4 rounded-md shadow-md border border-neon-pink',
 					].join(' ')}
 					role="menu"
 				>
@@ -63,7 +63,7 @@ export function Dropdown({
 								if (item.divider) {
 									return (
 										<li key={item.key ?? `divider-${idx}`}>
-											<hr className="my-2 border-t border-grayshade-200 dark:border-grayshade-200" />
+											<hr className="my-2 border-t" />
 										</li>
 									)
 								}
@@ -87,7 +87,7 @@ export function Dropdown({
 								if (item.href) {
 									return (
 										<li {...commonProps} key={item.key ?? `item-${idx}`}>
-											<a className="block " href={item.href}>
+											<a className="block" href={item.href}>
 												{content}
 											</a>
 										</li>

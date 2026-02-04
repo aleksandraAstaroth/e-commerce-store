@@ -26,7 +26,7 @@ export function QuantityCounter({ quantity, onIncrease, onDecrease, onRemove, cl
 				</button>
 			) : (
 				<button className="h-8 w-8 button" onClick={onRemove} type="button">
-					<Icon src="Delete" className="m-auto" />
+					<Icon src="Delete" className="w-4! h-4! hover:fill-red!" />
 				</button>
 			)}
 		</div>

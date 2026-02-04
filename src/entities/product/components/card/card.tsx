@@ -15,7 +15,7 @@ export function ProductCard({ data }: { data: IProductCardDataFragment | null | 
 	if (!productId) return null
 
 	return (
-		<Card className="grid md:p-4 gap-1 lg:p-7 hover-border-glow-turquoise max-w-[24rem]">
+		<Card className="grid gap-1 p-7 hover-border-glow-turquoise lg:max-w-[24rem]">
 			<div className="relative h-72 w-full">
 				{imageUrl && <ImageComponent preload fill src={imageUrl} alt="" className="object-cover aspect-auto" />}
 			</div>

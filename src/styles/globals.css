@@ -6,6 +6,7 @@
 	--neon-color-pink: rgb(255, 0, 237);
 	--neon-color-turquoise: #00f9ff;
 	--white: rgb(255, 255, 255);
+	--see-through-white: rgba(255, 255, 255, 0.2);
 	--background-color: rgb(23, 27, 29);
 	--text-shadow-pink:
 		0 0 5px var(--white), 0 0 10px var(--neon-color-pink), 0 0 15px var(--neon-color-pink),
@@ -32,6 +33,7 @@
 	--color-red: var(--color-red);
 	--color-neon-pink: rgb(255, 0, 237);
 	--color-neon-turquoise: #00f9ff;
+	--color-outline: var(--see-through-white);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -97,6 +99,7 @@ body {
 		0 0 40px rgba(255, 0, 237, 0.35),
 		inset 0 0 30px rgba(255, 0, 237, 0.12);
 }
+
 .glass-neon-pink::before {
 	content: '';
 	position: absolute;
@@ -121,13 +124,14 @@ body {
 
 	pointer-events: none;
 }
+
 svg {
-	@apply text-white fill-current w-6 h-6;
+	@apply text-white fill-current w-6 h-6 hover:fill-neon-turquoise;
 }
 
-button > svg {
+/* button > svg {
 	@apply h-4 w-4;
-}
+} */
 
 button {
 	@apply cursor-pointer;
@@ -140,5 +144,5 @@ button {
 }
 
 .wrapper {
-	@apply m-auto max-w-[1480px] min-h-[calc(100vh-162px)] py-10 md:py-6 lg:px-14 md:px-14 px-4;
+	@apply m-auto max-w-[1480px] min-h-[calc(100vh-182px)] py-10 md:py-6 lg:px-14 md:px-14 px-4;
 }

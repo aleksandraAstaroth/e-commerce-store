@@ -9,16 +9,18 @@ import Link from 'next/link'
 import router from 'next/router'
 import { useState } from 'react'
 
-type RegisterValues = {
-	name: string
+export type AuthValues = {
+	name?: string
 	email: string
 	password: string
 }
 
-function validate(values: RegisterValues) {
-	const errors: Partial<Record<keyof RegisterValues, string>> = {}
+export function validate(values: AuthValues) {
+	const errors: Partial<Record<keyof AuthValues, string>> = {}
+	if ('name' in values) {
+		if (!values.name?.trim()) errors.name = 'Name is required'
+	}
 
-	if (!values.name.trim()) errors.name = 'Name is required'
 	if (!values.email.trim()) errors.email = 'Email is required'
 	else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email)) errors.email = 'Enter a valid email'
 
@@ -33,7 +35,7 @@ export default function RegisterView() {
 
 	const [addUser] = useMutation(ADD_USER_MUTATION)
 
-	const formik = useFormik<RegisterValues>({
+	const formik = useFormik<AuthValues>({
 		initialValues: { name: '', email: '', password: '' },
 		validate,
 		validateOnChange: false,
@@ -80,7 +82,7 @@ export default function RegisterView() {
 
 	return (
 		<div className="wrapper flex justify-center">
-			<Card className="flex flex-col items-center justify-center gap-10 rounded-2xl w-[500px]">
+			<Card className="flex flex-col p-10 items-center justify-center gap-10 rounded-2xl w-[500px]">
 				<form className="grid justify-center gap-8" onSubmit={formik.handleSubmit}>
 					<h1 className="text-neon-pink text-center font-bold text-4xl">Register</h1>
 					<div className="grid gap-4">

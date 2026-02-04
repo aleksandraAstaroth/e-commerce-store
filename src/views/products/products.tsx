@@ -3,6 +3,7 @@ import { ResponsiveLayout } from '@/components/responsive-layout/responsive-layo
 import { ProductCard } from '@/entities/product/components/card/card'
 import { getProductId } from '@/entities/product/id'
 import { IProductsViewProductsDataQuery, IProductsViewProductsDataQueryVariables } from '@/generated/schema-types'
+import { isNilOrEmpty } from '@/helpers/is-nil-or-empty'
 import { useQuery } from '@/hooks/use-query/use-query'
 import { CategoryFilter } from './components/category-filter/category-filter'
 import { PRODUCTS_VIEW_PRODUCTS_DATA_QUERY } from './graphql'
@@ -32,6 +33,7 @@ export function ProductsView() {
 			</div>
 		)
 	}
+
 	return (
 		<ResponsiveLayout
 			headerSection={
@@ -40,7 +42,17 @@ export function ProductsView() {
 				</div>
 			}
 			rightSection={<CategoryFilter />}
-			leftSection={<div className="grid grid-cols-3 gap-4">{data?.products.map(renderProductCard)}</div>}
+			leftSection={
+				<div>
+					{!isNilOrEmpty(data?.products) ? (
+						<div className="grid mx-auto sm:grid-cols-2 lg:grid-cols-3 grid-cols-1 gap-4">
+							{data?.products.map(renderProductCard)}{' '}
+						</div>
+					) : (
+						<div className=" text-xl py-10">There are currently no products in this category :(</div>
+					)}
+				</div>
+			}
 		/>
 	)
 }

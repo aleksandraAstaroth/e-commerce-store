@@ -106,7 +106,6 @@ export function CartView() {
 		<ResponsiveLayout
 			leftSection={<div className="w-full">{renderCartItems()}</div>}
 			rightSection={
-				// <Card className="w-full p-6 drop-shadow-neon-pink border-glow-pink">
 				<Card className="w-full p-6 glass-neon-pink">
 					<h2 className="text-xl text-white font-bold mb-4">Order Summary</h2>
 					<div className="flex justify-between mb-2">

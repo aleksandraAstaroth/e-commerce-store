@@ -2,14 +2,14 @@ import { create } from 'zustand'
 import { useShallow } from 'zustand/shallow'
 
 type ProductStore = {
-	selectedCategoryId: number | undefined
+	selectedCategoryId: number | null
 	actions: {
-		setSelectedCategoryId: (id: number) => void
+		setSelectedCategoryId: (id: number | null) => void
 	}
 }
 
 const storeDefaults: Omit<ProductStore, 'actions'> = {
-	selectedCategoryId: undefined,
+	selectedCategoryId: null,
 }
 
 export const useProductsStore = create<ProductStore>()(set => ({
