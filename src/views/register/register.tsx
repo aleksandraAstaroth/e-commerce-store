@@ -3,11 +3,11 @@ import { InputField } from '@/components/input-field/input-field'
 import { ADD_USER_MUTATION } from '@/graphql/mutations/add-user'
 import { paths } from '@/helpers/paths/paths'
 import { useMutation } from '@/hooks/use-mutation/use-mutation'
+import { useToast } from '@/hooks/use-toast/use-toast'
 import { useFormik } from 'formik'
 import { signIn } from 'next-auth/react'
 import Link from 'next/link'
 import router from 'next/router'
-import { useState } from 'react'
 
 export type AuthValues = {
 	name?: string
@@ -31,8 +31,7 @@ export function validate(values: AuthValues) {
 }
 
 export default function RegisterView() {
-	const [formError, setFormError] = useState<string | null>(null)
-
+	const { toast } = useToast()
 	const [addUser] = useMutation(ADD_USER_MUTATION)
 
 	const formik = useFormik<AuthValues>({
@@ -41,8 +40,6 @@ export default function RegisterView() {
 		validateOnChange: false,
 		validateOnBlur: true,
 		onSubmit: async (values, helpers) => {
-			setFormError(null)
-
 			try {
 				const response = await addUser({
 					data: {
@@ -54,10 +51,18 @@ export default function RegisterView() {
 				})
 
 				if (!response) {
-					setFormError('Registration failed. Please try again.')
+					toast({
+						type: 'error',
+						content: () => 'Registration failed. Please try again.',
+					})
 					return
 				}
-				alert('Account created successfully! You will be redirected to the products page.')
+
+				toast({
+					type: 'success',
+					content: () => 'Account created successfully!',
+				})
+
 				const res = await signIn('credentials', {
 					email: values.email,
 					password: values.password,
@@ -66,14 +71,20 @@ export default function RegisterView() {
 				})
 
 				if (!res || res.error) {
-					// account created but login failed
+					toast({
+						type: 'error',
+						content: () => 'Login failed after registration. Please try logging in again.',
+					})
 					await router.push(paths.login)
 					return
 				}
 
 				await router.push(res.url ?? '/products')
 			} catch {
-				setFormError('User already exists or registration failed.')
+				toast({
+					type: 'error',
+					content: () => 'Registration failed. Please try again.',
+				})
 			} finally {
 				helpers.setSubmitting(false)
 			}

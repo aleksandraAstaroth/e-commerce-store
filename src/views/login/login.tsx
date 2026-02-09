@@ -1,23 +1,17 @@
 import Card from '@/components/card/card'
 import { InputField } from '@/components/input-field/input-field'
-import { IGetUsersQuery, IGetUsersQueryVariables } from '@/generated/schema-types'
-import { GET_USERS_QUERY } from '@/graphql/queries/get-users'
 
 import { paths } from '@/helpers/paths/paths'
-import { useQuery } from '@/hooks/use-query/use-query'
 import { useFormik } from 'formik'
 import { signIn } from 'next-auth/react'
 import Link from 'next/link'
 
+import { useToast } from '@/hooks/use-toast/use-toast'
 import router from 'next/router'
-import { useState } from 'react'
 import { AuthValues, validate } from '../register/register'
 
 export default function LoginView() {
-	const [error, setError] = useState<string | null>(null)
-	const [loading, setLoading] = useState(false)
-
-	const { data, isLoading } = useQuery<IGetUsersQuery, IGetUsersQueryVariables>(GET_USERS_QUERY)
+	const { toast } = useToast()
 
 	const formik = useFormik<AuthValues>({
 		initialValues: { email: '', password: '' },
@@ -25,8 +19,6 @@ export default function LoginView() {
 		validateOnChange: true,
 
 		onSubmit: async (values, helpers) => {
-			setError(null)
-
 			try {
 				const res = await signIn('credentials', {
 					email: values.email,
@@ -37,14 +29,24 @@ export default function LoginView() {
 				console.log(res?.error)
 
 				if (res?.ok) {
+					toast({
+						type: 'success',
+						content: () => 'Login successful! Redirecting to products page...',
+					})
+
 					await router.push(paths.products)
 				}
 				if (res?.error) {
-					setError(res.error)
-					alert('Login failed. Please check your credentials and try again.')
+					toast({
+						type: 'error',
+						content: () => 'Login failed. Please check your credentials and try again.',
+					})
 				}
 			} catch {
-				alert('Login failed. Please check your credentials and try again.')
+				toast({
+					type: 'error',
+					content: () => 'Login failed. Please check your credentials and try again.',
+				})
 			} finally {
 				helpers.setSubmitting(false)
 			}
