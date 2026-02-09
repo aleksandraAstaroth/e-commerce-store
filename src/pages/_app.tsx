@@ -1,3 +1,4 @@
+import { DisplayToasts } from '@/components/toast/toast'
 import { Header } from '@/layout/header/header'
 import { Page } from '@/layout/page/page'
 import '@/styles/globals.css'
@@ -31,6 +32,7 @@ export default function App({ Component, pageProps: { session, ...pageProps } }:
 				<Page>{getLayout(<Component {...pageProps} />, pageProps)}</Page>
 			</main>
 			<ForceRefresh />
+			<DisplayToasts />
 		</SessionProvider>
 	)
 }
